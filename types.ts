@@ -40,8 +40,16 @@ namespace Calico {
         pattern: Pattern;
         color: Color;
     }
-    const thing: Color = Color.YELLOW;
-    
+
+    type Button = {
+        color: Color;
+    }
+
+    type Cat = {
+        pattern: Pattern
+    }
+
+    type Flair = Cat | Button;
 
     type ColorlessTile = Omit<Tile, 'color'>;
     type PatchTile = Tile | ColorlessTile;
