@@ -13,6 +13,10 @@ namespace Calico {
 
     }
 
+    /*
+        Board
+    */
+
     enum TileSource {
         POT,
         BAG,
@@ -41,12 +45,16 @@ namespace Calico {
         color: Color;
     }
 
+    type PointValue = number;
+
     type Button = {
         color: Color;
+        value: PointValue; // 3
     }
 
     type Cat = {
         pattern: Pattern
+        value: PointValue;
     }
 
     type Flair = Cat | Button;
@@ -72,6 +80,29 @@ namespace Calico {
         points_min: GoalMin;
         points_max: GoalMax;
         goal: Goal; 
+    }
+
+    /*
+        Player
+    */
+
+    const boardSpaces: Space[][] = Array(7).fill(Array(7).fill({} as Space));
+    type Board = {
+        color: Color;
+        spaces: Space[][];
+    }
+
+    type Player = {
+        name: string;
+        board: Board;
+        tiles: [Tile, Tile];
+    }
+
+    type Empty = undefined;
+    type MaybeTile = BoardTile | Empty;
+    type Space = { // Node
+        tile: MaybeTile;
+        flair?: Flair; // can have two flair??
     }
 
 }
