@@ -13,12 +13,16 @@ namespace Calico {
 
     }
 
+    const Nothing = Symbol('nothing');
+    type Nothing = typeof Nothing;
+    type Maybe<T> = T | Nothing;
+
     /*
         Board
     */
 
     enum TileSource {
-        POT,
+        MARKET,
         BAG,
     }
 
@@ -53,6 +57,7 @@ namespace Calico {
     }
 
     type Cat = {
+        name: string;
         pattern: Pattern
         value: PointValue;
     }
@@ -95,14 +100,31 @@ namespace Calico {
     type Player = {
         name: string;
         board: Board;
-        tiles: [Tile, Tile];
+        tiles: [Tile, Maybe<Tile>];
     }
 
-    type Empty = undefined;
-    type MaybeTile = BoardTile | Empty;
     type Space = { // Node
-        tile: MaybeTile;
-        flair?: Flair; // can have two flair??
+        tile: Maybe<BoardTile>;
+        flair?: Maybe<Flair>; // can have two flair??
+    }
+
+    type TileArrangementGoal = {
+        // oof how do we do this??
+    };
+
+    type CatObjective = {
+        cat: Cat;
+        patterns: [ColorlessTile, ColorlessTile];
+        tileArrangementGoal: TileArrangementGoal;
+    };
+
+    type Game = {
+        market: [Tile, Tile, Maybe<Tile>];
+        bag: Tile[];
+        round: number;
+        turnOrder: Player[]; 
+        turn: Player;
+        catObjectives: [CatObjective, CatObjective, CatObjective];
     }
 
 }
