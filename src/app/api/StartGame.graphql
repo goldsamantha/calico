@@ -1,0 +1,8 @@
+mutation StartGame($game_code: String = "", $player_name: String = "") {
+    insert_games_one(object: {game_code: $game_code, players: {data: [{name: $player_name}]}}) {
+      game_code
+      players {
+        name
+      }
+    }
+}
